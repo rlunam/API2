@@ -364,7 +364,7 @@ app.get('/readsinglesucursal', (req,res,next)=>{
 //------------------------------DELETE----------------------------------
 //----------------------------------------------------------------------
 //DETALLE_PEDIDO
-app.delete('/deletedetallepedido', (req,res,next)=>{
+app.delete('/deletedetallepedido/:Numero_pedido', (req,res,next)=>{
     async function deleteDetalle_pedido(){
         try {
             const connection = await oracledb.getConnection({
@@ -372,7 +372,7 @@ app.delete('/deletedetallepedido', (req,res,next)=>{
                 password: 'PassPan',
                 connectString: 'localhost/xepdb1',
             });
-            const{Numero_pedido}=req.body;
+            const{Numero_pedido}=req.params;
             let query=' DELETE FROM DETALLE_PEDIDO WHERE PED_NUMERO=:Numero_pedido';
             const result=await connection.execute(query, [Numero_pedido])
             console.log(result.rows);
